@@ -13,7 +13,7 @@ namespace SchoolSystem
     //reference to student class
         public List<Student> students {get; set;} = new List<Student>();
 
-        public int maxCapacity = 30;    
+        private int maxCapacity = 30;    
 
         public void EnrollStudent(Student s)
         {
@@ -26,6 +26,12 @@ namespace SchoolSystem
             {
                 Console.WriteLine($"Student {s.Name} failed to enrolled. Maximum capacity reached.");
             }
+        }
+
+        public void AssignTeacher(Teacher t)
+        {
+            courseTeacher = t;
+            Console.WriteLine("Teacher assigned");
         }
     }    
 }

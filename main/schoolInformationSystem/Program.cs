@@ -14,18 +14,24 @@ namespace SchoolSystem
         {
                 
            Course c = new Course();
-            List<Person> people = new List<Person>();
+            List<Student> students = new List<Student>();
+            List<Teacher> teachers = new List<Teacher>();
+            List<Course> courses = new List<Course>();
            
             string uSelect = "";
             
             //looping to get student info    
             Console.WriteLine("");
             
-           while((uSelect != "3") && (c.students.Count <= 30))
+           while((uSelect != "7") && (c.students.Count <= 30))
             {
-                Console.WriteLine("1. Input Student information");
-                Console.WriteLine("2. show student info");
-                Console.WriteLine("3. exit");
+                Console.WriteLine("1. Add Student");
+                Console.WriteLine("2. Add Teacher");
+                Console.WriteLine("3. Add Course");
+                Console.WriteLine("4. Assign Student to Course");
+                Console.WriteLine("5. Assign Teacher to Course");
+                Console.WriteLine("6. Display Info");
+                Console.WriteLine("7. Exit");
                 Console.WriteLine("");
                 Console.Write("Enter your selection: ");
 
@@ -37,12 +43,29 @@ namespace SchoolSystem
                     case 1:
                     {
                         
-                        
+                        Console.WriteLine("\n1. Part time");
+                        Console.WriteLine("2. Full time");
+
+                        Console.Write("Enter your selection");
+                        int studentStatus = int.Parse(Console.ReadLine());
+
+                       Student s = new Student();
+                        if(studentStatus == 1)
+                            {
+                                Console.WriteLine("You Select Part time");
+                                s = new PartTimeStudent();
+                            }
+                            else
+                            {
+                                Console.WriteLine("You Select Full time");
+                                s = new FullTimeStudent();
+                            }
+
                         bool valid = false; 
 
-                        Console.WriteLine("");
-                        Student s = new Student();
-                        Console.Write("enter Student Name:");
+                        
+                        
+                        Console.Write("\n Enter Student Name:");
                         s.Name = Console.ReadLine();
 
                         //for the age input, making sure it not crashing if user input non number.
@@ -74,6 +97,8 @@ namespace SchoolSystem
                         Console.Write("enter Student ID:");
                         s.StudentID = Console.ReadLine();
 
+                        students.Add(s);
+
                         c.EnrollStudent(s);                        
 
                         Console.WriteLine("");
@@ -81,7 +106,60 @@ namespace SchoolSystem
                     } 
                     case 2:
                     {
+                        Teacher t = new Teacher();
+                        Console.WriteLine("\n1. Part time");
+                        Console.WriteLine("2. Full time");
+
+                        Console.Write("Enter your selection");
+                        int teacherStatus = int.Parse(Console.ReadLine());
+                        if(teacherStatus == 1)
+                            {
+                                Console.WriteLine("You Select Part time");
+                                t = new PartTimeTeacher();
+                            }
+                            else
+                            {
+                                Console.WriteLine("You Select Full time");
+                                t = new FullTimeTeacher();
+                            }
                         
+                        bool valid = false; 
+
+                        
+                        
+                        Console.Write("\nEnter Teacher Name:");
+                        t.Name = Console.ReadLine();
+
+                        //for the age input, making sure it not crashing if user input non number.
+                        while(!valid)
+                            {
+                                Console.Write("enter Teacher Age:");
+                                try
+                                {
+                                    int ageInput = int.Parse(Console.ReadLine());
+
+                                    if(ageInput > 0)
+                                    {
+                                        t.Age = ageInput;
+                                        valid = true;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("age must be positve.");
+                                    }                                    
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("not a valid age, try again.");
+                                }
+                            }
+                        
+                        Console.Write("enter ID:");
+                        t.Id = Console.ReadLine();
+                        teachers.Add(t);
+                        
+                        
+
                         
                         break;
                     }
@@ -89,7 +167,7 @@ namespace SchoolSystem
                 }
 
 
-            Console.WriteLine($"Number of student: {c.students.Count}");
+            Console.WriteLine($"Number of student: {c.students.Count}\n");
                         
             }
            
